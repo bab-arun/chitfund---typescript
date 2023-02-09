@@ -1,0 +1,549 @@
+ 
+/**********Login Form*************** */
+.userlogin_header{
+    margin-top: -82px;
+    margin-left: -160px;
+}
+
+.UserName{
+    
+        color: #08a992;
+            margin-top: 30px;
+            margin-left: -9px;
+
+}
+.usercredential{
+    margin-top: 40px;
+    border-style: solid;
+    margin-left: -74px;
+    padding: 70px;
+    margin-right: 455px;
+    margin-bottom: 197px;
+}
+
+.userform{
+    margin-left: 615px;
+    margin-top: 150px;
+}
+
+.login_select{
+    width: 188px;
+    height: 29px;
+
+}
+
+.Login_submit{
+        width: 90px;
+        height: 29px;
+        margin-top: 6px;
+        margin-left: 58px;
+        background-color: black;
+        color: white;
+}
+
+.UserLogin_textbox{
+    height: 40px;
+    width: 200px;
+}
+
+
+
+/******************************************************/
+
+/******************* UserHome page ********************/
+
+.bg_image{
+    text-align: -webkit-center;
+    margin-top: 111px;
+}
+
+.marq{
+    margin-top: 50px;
+}
+.userheader{
+    text-align: center;
+    margin-top: 70px;
+}
+
+.UpdatePaymentButton{
+    margin-top: 75px;
+    margin-left: 212px;
+    width: 400px;
+    height: 200px;
+    font-size: 26px;
+}
+
+.PaymentHistoryButton{
+    margin-top: -228px;
+    margin-left: 750px;
+    width: 400px;
+    height: 200px;
+    font-size: 26px;
+
+}
+
+/**********ADMIN*******Create Scheme page*****************/
+.admin_create_scheme_button{
+    margin-left: 67px;
+    margin-top: 30px;
+}
+.Create_scheme_box{
+    text-align: center;
+}
+
+.scheme_duration_select{
+    width: 188px;
+    height: 29px;
+}
+
+.create_chit_scheme{
+    margin-top: 12px;
+}
+
+.scheme_part_1{
+    margin-top: 45px;
+    margin-right: 270px;
+}
+
+.scheme_part_2{
+    margin-left: 270px;
+        margin-top: -417px;
+}
+
+.create_button{
+   
+    margin-right: -6px;
+    background-color: black;
+    color: white;
+    margin-left: 266px;
+        width: 187px;
+        height: -26px;
+        margin-top: 70px;
+}
+
+.create_scheme_name {
+    margin-right: 86px;
+}
+
+.create_scheme_amount {
+    margin-right: 68px;
+}
+
+.create_scheme_user {
+    margin-right: 70px;
+}
+
+.create_scheme_pay {
+    margin-right: 98px;
+}
+
+
+.create_scheme_interest {
+    margin-right: 78px;
+}
+
+
+.create_scheme_duration {
+    margin-right: -21px;
+}
+
+
+.create_scheme_start_date {
+    margin-right: 151px;
+    font-size: 14px;
+}
+
+
+.create_scheme_end_date {
+    margin-right: 151px;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.scheme_date{
+    width: 214px;
+    height: 38px;
+}
+
+.start_date{
+    margin-top: 24px;
+}
+
+.end_date{
+    margin-top: 24px;
+}
+
+.create_scheme_name_input{
+margin-left: -2px;
+
+}
+
+
+
+/****************************edit scheme page********************/
+
+.edit_scheme_name{
+margin-right: 83px;
+}
+
+.edit_scheme_amount{
+margin-right: 70px;
+}
+
+.edit_number_of_user{
+margin-right: 60px;
+}
+
+.edit_installment_amount{
+margin-right: 42px;
+}
+
+.edit_scheme_interest{
+margin-right: 70px;
+}
+
+.edit_scheme_duration{
+margin-right: 62px;
+}
+
+.input_start_date{
+    width: 188px;
+        height: 32px;
+}
+
+.input_end_date{
+    width: 188px;
+        height: 32px;
+}
+.edit_start_date{
+margin-right: 115px;
+}
+
+.edit_end_date{
+    margin-right: 116px;
+}
+/* *********************************************************** */
+
+
+/*********Admin************Create User form*******************/
+.user_table{
+   
+    margin-top: 5px;
+    text-align: center;
+    width: 90%;
+    margin-left: 68px;
+}
+
+.role_select{
+    width: 188px;
+    height: 34px;
+}
+
+.role_name{
+margin-right: 150px;
+}
+
+.admin_create_user_button{
+    margin-left: 68px;
+}
+
+.User_del_button{
+    margin-left: 22px;
+    background: rgb(255, 22, 50);
+}
+
+.User_edit_button{
+    margin-left: 18px;
+    width: 61px;
+    background: rgb(255, 217, 0);
+}
+
+.create_user_header{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.Create_user_button{
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: rgb(5, 218, 5);
+}
+
+.create_user_form{
+    text-align: center;
+}
+
+.User_form_label{
+    margin-right: 108px;
+}
+
+.User_form_label_password{
+    margin-right: 119px;
+}
+
+.User_form_label_email{
+    margin-right: 140px;
+}
+
+
+.User_form_label_mobile{
+    margin-right: 130px;
+}
+
+
+.User_form_label_address{
+    margin-right: 125px;
+}
+
+/******Admin*******edit form in create user***************/
+
+.edit_id{
+    margin-right: 165px;
+}
+
+.edit_name{
+    margin-right: 105px;
+}
+
+.edit_code{
+    margin-right: 105px;
+}
+
+.edit_password{
+    margin-right: 114px;
+}
+
+.edit_email{
+    margin-right: 140px;
+}
+
+.edit_mobile{
+    margin-right: 128px;
+}
+
+.edit_address{
+    margin-right: 122px;
+}
+.edit_role{
+    margin-left: -148px;
+}
+
+.edit_submit{
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+/****************************************/
+
+/* admin************Assign scheme ***************************/
+
+.assign_scheme_code{
+margin-right: 112px;
+}
+
+.assign_button{
+    background-color: black;
+    color: white;
+}
+
+.assign_scheme_name{
+    margin-right: 82px;
+}
+
+
+.assign_select{
+    margin-right: -1px;
+    width: 187px;
+    height: 30px;
+}
+
+.assign_multi_select{
+margin-right: -1px;
+    width: 187px;
+    height: 71px;
+}
+
+.assign_scheme_part{
+    margin-top: 45px;
+}
+
+.assign_chit_scheme{
+    margin-top: 65px;
+}
+/*******************************************************/
+
+/******************Admin Entry**************************/
+
+.installment_date_label{
+    margin-right: 62px;
+}
+.payment_date_input{
+        width: 182px;
+            height: 31px;
+}
+.admin_part_2{
+    margin-left: 270px;
+    margin-top: -234px;
+}
+
+.entry_name{
+margin-right: 106px;
+}
+
+.entry_code{
+    margin-right: 112px;
+}
+
+.entry_scheme_name{
+    margin-right: 82px;
+}
+
+.entry_scheme_amount{
+    margin-right: 66px;
+}
+
+.entry_pay_amount{
+    margin-right: 93px;
+}
+
+.entry_pay_date{
+    margin-right: 100px;
+}
+
+.admin_pay_date{
+    width: 185px;
+    height: 30px;
+}
+
+.admin_part_2{
+margin-left: -8px;
+margin-top: 38px;
+}
+
+.assign_scheme_amount{
+margin-right: 39px;
+}
+
+.entry_pay_request{
+    margin-right: 62px;
+}
+
+.admin_entry_button{
+margin-right: -12px;
+    background-color: black;
+    color: white;
+    margin-left: -19px;
+    width: 187px;
+    height: -26px;
+    margin-top: 20px;
+}
+/****************************************************/
+
+/***************Admin********Accept payment***********/
+
+.Accept_payment_table{
+   
+    margin-top: 45px;
+    text-align: center;
+    width: 90%;
+    margin-left: 68px;
+}
+
+/***********************************************/
+
+/************User*******Update Payment */
+
+
+
+.update_user_header{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.update_payment_table{
+    margin-top: 45px;
+    text-align: center;
+    width: 90%;
+    margin-left: 68px;
+}
+
+.update_payment_box{
+    margin-top: 100px;
+}
+
+.Back_user_home{
+    margin-left: 584px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.back_user{
+    margin-top: 40px;
+}
+
+/****************************************/
+
+
+/************User******* Payment History***************/
+
+.history_payment_table{
+    margin-top: 45px;
+    text-align: center;
+    width: 90%;
+    margin-left: 68px;
+}
+
+.user_home_button{
+    margin-top: 30px;
+    margin-left: 600px;
+}
+
+/*******************************************/
+
+/**************Admin homepage *************/
+.chit_scheme_home{
+        margin-top: 5px;
+        text-align: center;
+        width: 90%;
+        margin-left: 68px;
+}
+.scheme_table{
+    width: 90%;
+    margin-left: 64px;
+}
+
+.admin_logout{
+    margin-right: -75px;
+        margin-bottom: 19px;
+        height: 30px;
+        border-radius: 14px;
+        background-color: gainsboro;
+}
+
+.chit_scheme_table{
+    margin-top: 45px;
+    text-align: center;
+    width: fit-content;
+    margin-left: 68px;
+}
+
+/**************************************/
+/*user home table*/
+.userHome_scheme_table{
+        width: fit-content;
+            margin-top: 40px;
+            margin-left: 24px;
+}
+
+
+
+
+/* users pending payment */
+
+.pending_user_payment_table{
+margin-top: 45px;
+    text-align: center;
+    width: 80%;
+    margin-left: 132px;
+}
+
