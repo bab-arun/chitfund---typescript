@@ -5,7 +5,7 @@ import { AdminHomepage } from "./AdminComponent/scheme/AdminHomepage";
 // import { UserHomepage } from "./UserComponent/UserHomepage";
 import { AdminNavbar } from "./AdminComponent/AdminNavbar";
 // import { CreateScheme } from "./AdminComponent/CreateScheme";
-// import { CreateUser } from "./AdminComponent/CreateUser";
+
 // import { AssignScheme } from "./AdminComponent/AssignScheme";
 // import { AdminEntry } from "./AdminComponent/AdminEntry";
 // import { AcceptPayment } from "./AdminComponent/AcceptPayment";
@@ -21,6 +21,7 @@ import { LoginPage } from "./LoginComponent/LoginPage";
 import { useState, createContext,
   //  useReducer 
   } from "react";
+import { CreateUser } from "./AdminComponent/user/CreateUser";
 
   // type declaration for linkSchemeName
   export type schemeName = {
@@ -57,9 +58,9 @@ function App() {
             <Route path="/usernavbar" element={<UserNavbar />} />
             <Route path="/adminhomepage" element={<AdminHomepage />} />
             <Route path="/adminnavbar" element={<AdminNavbar />}/>
+             <Route path="/createuser" element={<CreateUser />} />
             {/* <Route path="/userhomepage" element={<UserHomepage />} />
             <Route path="/createscheme" element={<CreateScheme />} />
-            <Route path="/createuser" element={<CreateUser />} />
             <Route path="/assignscheme" element={<AssignScheme />} /> */}
             {/* <Route
               path="/adminentry/:scheme/:amount"

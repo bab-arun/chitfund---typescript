@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 
 import axios from "axios";
@@ -71,58 +72,7 @@ export const AdminHomepage = () => {
     }
   };
 
-  const editSchemeApi = (e: any) => {
-    e.preventDefault();
-    let id = e.target[0].value;
-    let schemeName = e.target[1].value;
-    let schemeAmount = e.target[2].value;
-    let numberOfUser = e.target[3].value;
-    let payAmount = e.target[4].value;
-    let schemeDuration = e.target[5].value;
-    let startDate = e.target[6].value;
-    let endDate = e.target[7].value;
-
-    console.log({
-      id,
-      schemeName,
-      schemeAmount,
-      numberOfUser,
-      payAmount,
-
-      schemeDuration,
-      startDate,
-      endDate,
-    });
-
-    axios
-      .post("http://localhost:8081/addSchemeDetails/save", {
-        id,
-        schemeName,
-        schemeAmount,
-        numberOfUser,
-        payAmount,
-
-        schemeDuration,
-        startDate,
-        endDate,
-      })
-      .then((result) => {
-        console.log(result);
-        if (result.data === "Scheme inserted successfully") {
-          swal({
-            title: "Edit Scheme Saved Successfully!!!",
-          }).then(function () {
-            window.location.href = "http://localhost:3000/adminhomepage";
-
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  /////////////////////////////////////////////////////////
+ 
 
   // Delete Api for scheme table///////////////////////////////////
 
@@ -197,17 +147,7 @@ export const AdminHomepage = () => {
 
     setEndDate(date);
   };
-  // action for dataTable
-  const [openMenu, setOpenMenuActions] = useState(null);
-
-  const handleOpenMenu = (event: any) => {
-    setOpenMenuActions(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setOpenMenuActions(null);
-  };
-
+ 
 
   // data grid
   const columns = [
@@ -266,7 +206,7 @@ export const AdminHomepage = () => {
         )
 
       }
-      , headerName: 'Actions', width: 130
+      , headerName: 'Actions', width: 100
     },
   ]
 
@@ -289,9 +229,6 @@ export const AdminHomepage = () => {
       <div>
         <h1 className="create_user_header">CHIT SCHEMES</h1>
         <div className="admin_create_scheme_button">
-          {/* <Button variant="success" onClick={() => navigate("/createscheme")}>
-            Add Scheme
-          </Button> */}
           <Button variant="contained" sx={{ backgroundColor: "#22998d" }} onClick={addScheme}>
             Add Scheme
           </Button>
@@ -306,7 +243,6 @@ export const AdminHomepage = () => {
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                // checkboxSelection
                 onCellClick={handleCellClick}
                 onRowClick={handleRowClick}
               />
@@ -315,120 +251,7 @@ export const AdminHomepage = () => {
           )}
 
 
-          {/* *********************** edit scheme *********************************
-          <Modal
-            show={edit}
-            onHide={handClose}
-            aria-labelledby="contained-modal-title-vcenter"
-            backdrop="static"
-            keyboard={false}
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Edit Scheme</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <form
-                onSubmit={(e) => {
-                  editSchemeApi(e);
-                }}
-                className="create_user_form"
-              >
-                <input
-                  type="hidden"
-                  className=""
-                  value={selectedData.id}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_scheme_name">Scheme Name</label>
-                <br></br>
-                <input
-                  type="text"
-                  className=""
-                  value={selectedData.schemeName}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_scheme_amount">Scheme Amount</label>
-                <br></br>
-                <input
-                  type="text"
-                  className=""
-                  value={selectedData.schemeAmount}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_number_of_user">Number Of Users</label>
-                <br></br>
-                <input
-                  type="text"
-                  className=""
-                  value={selectedData.numberOfUser}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_installment_amount">
-                  Installment Amount
-                </label>
-                <br></br>
-                <input
-                  type="text"
-                  className=""
-                  value={selectedData.payAmount}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_scheme_duration">Scheme Duration</label>
-                <br></br>
-                <input
-                  type="text"
-                  className=""
-                  value={schemeDuration}
-                  onChange={durationHandler}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_start_date">Start Date</label>
-                <br></br>
-                <input
-                  type="date"
-                  id="previousDateHider"
-                  className="input_start_date"
-                  value={startDate}
-                  onChange={startDateHandler}
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <label className="edit_end_date">End Date</label>
-                <br></br>
-                <input
-                  type="date"
-                  className="input_end_date"
-                  value={endDate}
-                  readOnly
-                  required
-                />{" "}
-                <br></br>
-                <br></br>
-                <input type="submit" value="Submit" className="edit_submit" />
-              </form>
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal> */}
+        
 
           {openPopup === true && (
             <DynamicPopup
@@ -455,7 +278,7 @@ export const AdminHomepage = () => {
             </DynamicPopup>
           )}
 
-          {/* /////////////////////////////////////////////////////////////////////// */}
+         
         </div>
       </div>
     </>
