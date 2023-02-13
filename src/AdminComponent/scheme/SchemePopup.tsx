@@ -141,7 +141,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
     <>
 
       <FormProvider methods={methods} onSubmit={(e)=>e.preventDefault()}>
-        <Grid container spacing={2} sx={{ mt: 2, mb: 1 }}>
+        <Grid container spacing={2} sx={{ mt: -1, mb: 1 }}>
           <Grid item xs={4}>
             <TextFieldMUi
               variant="outlined"
@@ -214,8 +214,8 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
               renderInput={(params) => (
                 <TextField
                   sx={{width:"225px"}}
-                  {...(errors.startDate !== '' && { error: true, helperText: errors.startDate })}
                   {...params}
+                  {...(errors.startDate !== '' && { error: true, helperText: errors.startDate })}
                 />
               )}
             />

@@ -18,7 +18,12 @@ const NewAssignSchemeSchema = Yup.object().shape({
   // name: Yup.string().required("Name is required"),
 });
 
-const initialFieldValues={
+interface InitialFieldValues{
+  schemeName:string,
+  userCodeList:string[],
+}
+
+const initialFieldValues : InitialFieldValues={
   schemeName:'',
   userCodeList:[],
 }

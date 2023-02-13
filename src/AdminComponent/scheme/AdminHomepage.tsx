@@ -257,7 +257,6 @@ export const AdminHomepage = () => {
           {openPopup === true && (
             <DynamicPopup
               openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
               title={title}
               onClose={() => {
 

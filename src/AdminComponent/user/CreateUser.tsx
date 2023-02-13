@@ -171,7 +171,6 @@ export const CreateUser = () => {
         {openPopup === true && (
           <DynamicPopup
             openPopup={openPopup}
-            setOpenPopup={setOpenPopup}
             title={title}
             onClose={() => {
 

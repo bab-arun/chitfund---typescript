@@ -11,7 +11,13 @@ FormProvider.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default function FormProvider({ children, onSubmit, methods }) {
+interface Props {
+  children?: any,
+  onSubmit?:any,
+  methods?:any
+}
+
+export default function FormProvider({ children, onSubmit, methods }: Props) {
   return (
     <>
     <Form {...methods}>

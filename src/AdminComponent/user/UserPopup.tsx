@@ -235,7 +235,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
   return (
     <>
       <FormProvider methods={methods} onSubmit={(e) => e.preventDefault()}>
-        <Grid container spacing={2} sx={{ mt: 1, mb: 1 }}>
+        <Grid container spacing={2} sx={{ mt: -1, mb: 1 }}>
           <Grid item xs={4}>
             <TextFieldMUi
               variant="outlined"
@@ -246,7 +246,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
               onFocus={userNameHider}
               onChange={handleInputChange}
               {...(errors.userName !== '' && { error: true, helperText: errors.userName })}
-              required
+              
             />
           </Grid>
           <Grid item xs={4}>
@@ -259,7 +259,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
               onFocus={userCodeHider}
               onChange={handleInputChange}
               {...(errors.userCode !== '' && { error: true, helperText: errors.userCode })}
-              required
+              
             />
           </Grid>
           <Grid item xs={4}>

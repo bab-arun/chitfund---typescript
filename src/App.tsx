@@ -7,7 +7,7 @@ import { AdminNavbar } from "./AdminComponent/AdminNavbar";
 // import { CreateScheme } from "./AdminComponent/CreateScheme";
 
  import { AssignScheme } from "./AdminComponent/AssignScheme";
-// import { AdminEntry } from "./AdminComponent/AdminEntry";
+ import { AdminEntry } from "./AdminComponent/AdminEntry";
 // import { AcceptPayment } from "./AdminComponent/AcceptPayment";
 // import { PendingPayment } from "./AdminComponent/PendingPayment";
 // import { ShowProgress } from "./AdminComponent/ShowProgress";
@@ -60,15 +60,17 @@ function App() {
             <Route path="/adminnavbar" element={<AdminNavbar />}/>
              <Route path="/createuser" element={<CreateUser />} />
              <Route path="/assignscheme" element={<AssignScheme />} />
+             <Route path="/adminentry" element={<AdminEntry />} />
+             <Route
+              path="/adminentry/:scheme/:amount"
+              element={<AdminEntry />}
+            />
             {/* <Route path="/userhomepage" element={<UserHomepage />} />
             <Route path="/createscheme" element={<CreateScheme />} />
              */}
-            {/* <Route
-              path="/adminentry/:scheme/:amount"
-              element={<AdminEntry />}
-            /> */}
+          
 
-            {/* <Route path="/adminentry" element={<AdminEntry />} />
+            {/* 
             <Route path="/acceptpayment" element={<AcceptPayment />} />
             <Route path="/pendingpayment" element={<PendingPayment />} />
             <Route path="/showprogress" element={<ShowProgress />} />

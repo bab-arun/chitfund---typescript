@@ -2,7 +2,13 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 
-export const ButtonMui = ({label,variant,...other}) => {
+interface Props {
+  label?: string,
+  variant?:any,
+ [x:string]:any
+}
+
+export const ButtonMui = ({label,variant,...other}:Props) => {
   return (
     <Button
     variant={variant}
