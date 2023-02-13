@@ -1,10 +1,7 @@
 
-/* eslint-disable no-useless-escape */
-/* eslint-disable jsx-a11y/no-autofocus */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from "react";
 import { AdminNavbar } from "../AdminNavbar";
-import {Button } from '@mui/material';
+import {Box, Button, Typography } from '@mui/material';
 import axios from "axios";
 import swal from "sweetalert";
 import { DataGrid } from "@mui/x-data-grid";
@@ -144,15 +141,24 @@ export const CreateUser = () => {
     <>
       <AdminNavbar />
 
-      <h1 className="create_user_header">User Details</h1>
+      <Typography sx={{
+          textAlign: "center",
+          marginTop: "30px",
+          fontSize:"35px"
+        }} ><b>User Details</b></Typography>
 
-      <div className="admin_create_user_button">
+      <Box sx={{ marginLeft: "68px"}}>
         <Button variant="contained" sx={{ backgroundColor: "#22998d" }} onClick={addUser}>
           Add User
         </Button>
-      </div>
+      </Box>
 
-      <div className="user_table">
+      <Box sx={{
+          marginTop: "8px",
+          textAlign: "center",
+          width: " 90%",
+          marginLeft: "68px"
+        }}>
         {loadData && (
 
           <div style={{ height: 400, width: '100%' }}>
@@ -193,7 +199,7 @@ export const CreateUser = () => {
         )}
 
 
-      </div>
+      </Box>
     </>
   );
 };

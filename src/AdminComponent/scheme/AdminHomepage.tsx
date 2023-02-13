@@ -3,7 +3,7 @@
 
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router";
@@ -228,14 +228,23 @@ export const AdminHomepage = () => {
     <>
       <AdminNavbar />
       <div>
-        <h1 className="create_user_header">CHIT SCHEMES</h1>
-        <div className="admin_create_scheme_button">
+      <Typography sx={{
+          textAlign: "center",
+          marginTop: "30px",
+          fontSize:"35px"
+        }} ><b>Chit Schemes</b></Typography>
+        <Box sx={{ marginLeft: "68px"}}>
           <Button variant="contained" sx={{ backgroundColor: "#22998d" }} onClick={addScheme}>
             Add Scheme
           </Button>
-        </div>
+        </Box>
 
-        <div className="chit_scheme_home">
+        <Box  sx={{
+          marginTop: "8px",
+          textAlign: "center",
+          width: " 90%",
+          marginLeft: "68px"
+        }}>
           {val && (
 
             <div style={{ height: 400, width: '100%' }}>
@@ -279,7 +288,7 @@ export const AdminHomepage = () => {
           )}
 
          
-        </div>
+        </Box>
       </div>
     </>
   );
