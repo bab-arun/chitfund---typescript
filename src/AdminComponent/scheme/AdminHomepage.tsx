@@ -65,6 +65,7 @@ export const AdminHomepage = () => {
   const assignLinkPopulate = (x: any) => {
     console.log(x.row.schemeName);
     setLinkSchemeName(x.row.schemeName);
+
     if (x.row.numberOfUser === x.row.schemeUserCount) {
       swal("User Count is Full", "You are unable to add user", "warning");
     } else {
