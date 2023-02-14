@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
 import DynamicPopup from "../../components/DynamicPopup";
 import { SchemePopup } from "./SchemePopup";
+import ConfirmDialog from "../../components/ConfirmDialog";
+
 
 interface InitialFieldValues {
   id: number,
@@ -51,7 +53,7 @@ export const AdminHomepage = () => {
     isOpen: false,
     title: '',
     subtitle: '',
-    onConfirm: '',
+    onConfirm: () : void=>{} ,
   });
 
 
@@ -78,23 +80,15 @@ export const AdminHomepage = () => {
   // Delete Api for scheme table///////////////////////////////////
 
   const deleteScheme = (event: any, cellValues: any) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, Assigned users are deleted with Scheme",
-      icon: "warning",
-      buttons: ['Cancel', 'Ok'],
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
         axios
           .get(`http://localhost:8081/scheme-details/delete/ ${cellValues.row.id}`)
           .then((res) => {
-            console.log(res);
+            if (res.data === "Scheme record deleted") {
+              window.location.href = "http://localhost:3000/adminhomepage";
+             }
           })
           .catch((err) => console.log(err));
-        window.location.href = "http://localhost:3000/adminhomepage";
-      }
-    });
+         
   };
 
   // get api for user table
@@ -200,8 +194,17 @@ export const AdminHomepage = () => {
             />
             <DeleteIcon sx={{ color: "red" }}
               onClick={(event) => {
-                deleteScheme(event, cellValues);
-              }}
+                setConfirmDialog({
+                  isOpen: true,
+                  title: 'Are you sure to delete this record?',
+                  subtitle: "Note : Once deleted, Assigned users are deleted with Scheme , You can't undo this operation",
+                  onConfirm: () =>  {
+                    deleteScheme(event, cellValues);
+                    setConfirmDialog({ ...confirmDialog, isOpen: false });
+                  },
+                });
+              }
+            }
             />
           </>
         )
@@ -290,6 +293,7 @@ export const AdminHomepage = () => {
          
         </Box>
       </div>
+      <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
     </>
   );
 };

@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 import { AdminNavbar } from "../AdminNavbar";
 import {Box, Button, Typography } from '@mui/material';
 import axios from "axios";
-import swal from "sweetalert";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DynamicPopup from "../../components/DynamicPopup";
 import { UserPopup } from "./UserPopup";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 interface InitialFieldValues {
   id: number,
@@ -45,22 +45,18 @@ export const CreateUser = () => {
     isOpen: false,
     title: '',
     subtitle: '',
-    onConfirm: '',
+    onConfirm: () : void=>{} ,
   });
 
 
   /////////////delete user api call
-  function deleteUser(event:any, cellValues:any) {
+  const deleteUser=(event:any, cellValues:any)=> {
     axios
       .get(`http://localhost:8081/user-details/delete/ ${cellValues.row.id}`)
       .then((res) => {
         console.log(res);
         if (res.data === "User record deleted") {
-          swal({
-            title: " User Deleted Successfully!!!",
-          }).then(function () {
-            window.location.href = "http://localhost:3000/createuser";
-          });
+         window.location.href = "http://localhost:3000/createuser";
         }
       })
       .catch((err) => console.log(err));
@@ -116,10 +112,19 @@ export const CreateUser = () => {
                 handShow(event, cellValues);
               }}
             />
-            <DeleteIcon sx={{ color: "red" }}
+              <DeleteIcon sx={{ color: "red" }}
               onClick={(event) => {
-                deleteUser(event, cellValues);
-              }}
+                setConfirmDialog({
+                  isOpen: true,
+                  title: 'Are you sure to delete this record?',
+                  subtitle: "Note :  You can't undo this operation",
+                  onConfirm: () =>  {
+                    deleteUser(event, cellValues);
+                    setConfirmDialog({ ...confirmDialog, isOpen: false });
+                  },
+                });
+              }
+            }
             />
           </>
         )
@@ -200,6 +205,7 @@ export const CreateUser = () => {
 
 
       </Box>
+      <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
     </>
   );
 };

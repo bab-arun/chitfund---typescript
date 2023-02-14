@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
+
 import React,{useState} from 'react'
-import { Divider, Grid,TextField } from '@mui/material';
+import { Divider, Grid,TextField} from '@mui/material';
 import { ButtonMui } from '../../components/ButtonMui';
 import FormProvider from '../../components/FormProvider';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from "axios";
 import swal from "sweetalert";
+
 
 
 const NewSchemeSchema = Yup.object().shape({
@@ -32,7 +33,7 @@ type SchemeProps = {
 
 
 export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
-  console.log(values,"propsvalues from index")
+
   // close popup
   const closePopup = () => {
     setOpenPopup(false);
@@ -96,10 +97,11 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
           }).then(function () {
             window.location.href = "http://localhost:3000/adminhomepage";
           });
+
         }
       })
       .catch((error) => {
-        // enqueueSnackbar(`Oops! Unable to create new scheme`,{variant:'error'});
+        console.log(error);
       });
   };
 

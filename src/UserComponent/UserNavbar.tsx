@@ -1,26 +1,24 @@
 import React from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { useNavigate,Link } from "react-router-dom";
+import {AppBar,Toolbar,Button, Typography, Box,Stack } from '@mui/material';
 
 import "../CssComponent/component.css";
-
-import { useNavigate, Link } from "react-router-dom";
 
 export const UserNavbar = () => {
   const logout = useNavigate();
 
   let userCode = sessionStorage.getItem("userCode");
 
-  ///
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container>
+    <AppBar position="static" sx={{backgroundColor:"black"}}>
+          <Toolbar>
         <Link
           to="/userhomepage"
           style={{ color: "white", textDecoration: "none" }}
         >
           HOME
         </Link>
-        <Nav className="me-auto">
+       
           <Link
             to="/updatepayment"
             style={{
@@ -52,13 +50,15 @@ export const UserNavbar = () => {
           >
             Available ChitSchemes
           </Link>
-        </Nav>
-
-        <button className="admin_logout" onClick={() => logout("/")}>
-          Logout
-        </button>
-        <div className="UserName">{userCode}</div>
-      </Container>
-    </Navbar>
+          <Box sx={{marginLeft:"650px"}}>
+           <Stack direction="column">
+            <Button variant="contained"  sx={{backgroundColor:"grey",height:"30px"}} onClick={() => logout("/")}>
+              Logout
+            </Button>
+            <Typography sx={{color:"#22998d"}}>{userCode}</Typography>
+            </Stack>
+            </Box>
+        </Toolbar>
+        </AppBar>
   );
 };

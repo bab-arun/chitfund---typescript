@@ -1,48 +1,46 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-useless-escape */
+
 import React, { useState } from "react";
-import swal from "sweetalert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TextFieldMUi } from "../components/TextFieldMui";
 import { Box, Button, Stack, Typography } from "@mui/material";
 
-interface Login{
-  userCode:string,
-  password:string,
+interface Login {
+  userCode: string,
+  password: string,
 }
 
 export const LoginPage = () => {
   const [userCode, setUserCode] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [mismatch, setMismatch] = useState<string>('');
-  
 
- 
+
+
 
   const [validData, setValidData] = useState();
   const navigate = useNavigate();
-  
-  const errorMsg:Login = {
-   userCode,
-   password,
+
+  const errorMsg: Login = {
+    userCode,
+    password,
   };
   const [errors, setErrors] = useState<Login>(errorMsg);
 
-  const loginValidate=()=>{
-    const temp:Login = errorMsg;
-    console.log(userCode,password,"userId Password");
+  const loginValidate = () => {
+    const temp: Login = errorMsg;
+    console.log(userCode, password, "userId Password");
     temp.userCode = userCode ? '' : 'email is required';
     temp.password = password ? '' : 'password is required';
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === '');
   }
 
-  const passwordValidation = (e:any) => {
-    console.log(userCode,password,"userId Password submit method");
-   if(!loginValidate()){
-    return
-   }
+  const passwordValidation = (e: any) => {
+    console.log(userCode, password, "userId Password submit method");
+    if (!loginValidate()) {
+      return
+    }
 
     axios
       .post("http://localhost:8081/usercode-password/check", {
@@ -71,19 +69,19 @@ export const LoginPage = () => {
       });
   };
 
-  const handleUserCode=(e:any)=>{
-    
+  const handleUserCode = (e: any) => {
+
     setMismatch('');
-    setErrors({...errors,userCode:''});
+    setErrors({ ...errors, userCode: '' });
     setUserCode(e.target.value);
-   sessionStorage.setItem("userCode", e.target.value);
+    sessionStorage.setItem("userCode", e.target.value);
   }
 
-  const handlePassword=(e:any)=>{
+  const handlePassword = (e: any) => {
     setMismatch('');
-    setErrors({...errors,password:''});
+    setErrors({ ...errors, password: '' });
     setPassword(e.target.value);
-   }
+  }
 
 
   return (
@@ -94,34 +92,34 @@ export const LoginPage = () => {
           marginLeft: "550px",
         }}
       >
-        <Typography style={{ marginRight: "900px",fontSize:"40px",fontWeight:"20px",marginBottom:"20px" }}>Chitfund</Typography>
-        {mismatch !== '' && (<Typography sx={{color:"red",marginBottom:"5px"}}>{mismatch}</Typography>)}
-        <form onSubmit={(e)=>e.preventDefault()}>
+        <Typography style={{ marginRight: "900px", fontSize: "40px", fontWeight: "20px", marginBottom: "20px" }}>Chitfund</Typography>
+        {mismatch !== '' && (<Typography sx={{ color: "red", marginBottom: "5px" }}>{mismatch}</Typography>)}
+        <form onSubmit={(e) => e.preventDefault()}>
           <Stack direction="column" spacing={3}>
-          <TextFieldMUi
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            style={{ width: "300px" }}
-            onChange={handleUserCode}
-            {...(errors.userCode !== '' && { error: true, helperText: errors.userCode })}
-            required
-          />
-          <TextFieldMUi
-            id="outlined-basic"
-            label="Password"
-            type="password"
-            variant="outlined"
-            style={{ width: "300px" }}
-            onChange={handlePassword}
-            {...(errors.password !== '' && { error: true, helperText: errors.password })}
-            required
-          />
+            <TextFieldMUi
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+              style={{ width: "300px" }}
+              onChange={handleUserCode}
+              {...(errors.userCode !== '' && { error: true, helperText: errors.userCode })}
+              required
+            />
+            <TextFieldMUi
+              id="outlined-basic"
+              label="Password"
+              type="password"
+              variant="outlined"
+              style={{ width: "300px" }}
+              onChange={handlePassword}
+              {...(errors.password !== '' && { error: true, helperText: errors.password })}
+              required
+            />
           </Stack>
-          
 
-          <Box sx={{marginLeft:"100px",marginTop:"20px"}}>
-          <Button variant="contained" onClick={passwordValidation}>Submit</Button>
+
+          <Box sx={{ marginLeft: "100px", marginTop: "20px" }}>
+            <Button variant="contained" onClick={passwordValidation}>Submit</Button>
           </Box>
         </form>
       </div>
