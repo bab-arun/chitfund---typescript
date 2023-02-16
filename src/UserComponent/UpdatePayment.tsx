@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { UserNavbar } from "./UserNavbar";
-import swal from "sweetalert";
-
-// import swal from "sweetalert";
 import { useParams } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Typography } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 export const UpdatePayment = () => {
   let usercode = sessionStorage.getItem("userCode");
   const { schemeName } = useParams();
-
+  const { enqueueSnackbar } = useSnackbar();
 
 
   const [installmentList, setInstallmentList] = useState([]);
@@ -55,11 +53,10 @@ export const UpdatePayment = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data === "User Payment is Done") {
-          swal({
-            title: "Payment Done Successfully!!!",
-          }).then(function () {
+          enqueueSnackbar(`Payment Done Successfully`, { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
             window.location.href = "http://localhost:3000/updatepayment";
-          });
+          }, 1000);
         }
       })
       .catch((err) => console.log(err));

@@ -7,7 +7,6 @@ import { Box, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router";
-import swal from "sweetalert";
 import { ChitSchemeContext } from "../../App";
 import { AdminNavbar } from "../AdminNavbar";
 import { Link } from "react-router-dom";
@@ -15,6 +14,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import DynamicPopup from "../../components/DynamicPopup";
 import { SchemePopup } from "./SchemePopup";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { useSnackbar } from 'notistack';
 
 
 interface InitialFieldValues {
@@ -48,12 +48,13 @@ export const AdminHomepage = () => {
   const [endDate, setEndDate] = useState();
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [title, setTitle] = useState('Add Scheme');
+  const { enqueueSnackbar } = useSnackbar();
 
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: '',
     subtitle: '',
-    onConfirm: () : void=>{} ,
+    onConfirm: (): void => { },
   });
 
 
@@ -69,26 +70,30 @@ export const AdminHomepage = () => {
     setLinkSchemeName(x.row.schemeName);
 
     if (x.row.numberOfUser === x.row.schemeUserCount) {
-      swal("User Count is Full", "You are unable to add user", "warning");
+      enqueueSnackbar(`User Count is Full, You are unable to add user`, { variant: "info", autoHideDuration: 4000 });
     } else {
       navigate("/assignscheme");
     }
   };
 
- 
+
 
   // Delete Api for scheme table///////////////////////////////////
 
   const deleteScheme = (event: any, cellValues: any) => {
-        axios
-          .get(`http://localhost:8081/scheme-details/delete/ ${cellValues.row.id}`)
-          .then((res) => {
-            if (res.data === "Scheme record deleted") {
-              window.location.href = "http://localhost:3000/adminhomepage";
-             }
-          })
-          .catch((err) => console.log(err));
-         
+    axios
+      .get(`http://localhost:8081/scheme-details/delete/ ${cellValues.row.id}`)
+      .then((res) => {
+        if (res.data === "Scheme record deleted") {
+          enqueueSnackbar('scheme deleted successfully.', { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
+            window.location.href = "http://localhost:3000/adminhomepage";
+          }, 1000);
+
+        }
+      })
+      .catch((err) => console.log(err));
+
   };
 
   // get api for user table
@@ -142,7 +147,7 @@ export const AdminHomepage = () => {
 
     setEndDate(date);
   };
- 
+
 
   // data grid
   const columns = [
@@ -198,13 +203,13 @@ export const AdminHomepage = () => {
                   isOpen: true,
                   title: 'Are you sure to delete this record?',
                   subtitle: "Note : Once deleted, Assigned users are deleted with Scheme , You can't undo this operation",
-                  onConfirm: () =>  {
+                  onConfirm: () => {
                     deleteScheme(event, cellValues);
                     setConfirmDialog({ ...confirmDialog, isOpen: false });
                   },
                 });
               }
-            }
+              }
             />
           </>
         )
@@ -231,18 +236,18 @@ export const AdminHomepage = () => {
     <>
       <AdminNavbar />
       <div>
-      <Typography sx={{
+        <Typography sx={{
           textAlign: "center",
           marginTop: "30px",
-          fontSize:"35px"
+          fontSize: "35px"
         }} ><b>Chit Schemes</b></Typography>
-        <Box sx={{ marginLeft: "68px"}}>
+        <Box sx={{ marginLeft: "68px" }}>
           <Button variant="contained" sx={{ backgroundColor: "#22998d" }} onClick={addScheme}>
             Add Scheme
           </Button>
         </Box>
 
-        <Box  sx={{
+        <Box sx={{
           marginTop: "8px",
           textAlign: "center",
           width: " 90%",
@@ -264,7 +269,7 @@ export const AdminHomepage = () => {
           )}
 
 
-        
+
 
           {openPopup === true && (
             <DynamicPopup
@@ -290,7 +295,7 @@ export const AdminHomepage = () => {
             </DynamicPopup>
           )}
 
-         
+
         </Box>
       </div>
       <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />

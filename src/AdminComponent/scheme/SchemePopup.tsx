@@ -1,6 +1,6 @@
 
-import React,{useState} from 'react'
-import { Divider, Grid,TextField} from '@mui/material';
+import React, { useState } from 'react'
+import { Divider, Grid, TextField } from '@mui/material';
 import { ButtonMui } from '../../components/ButtonMui';
 import FormProvider from '../../components/FormProvider';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from "axios";
-import swal from "sweetalert";
+import { useSnackbar } from 'notistack';
 
 
 
@@ -23,17 +23,17 @@ type SchemeProps = {
   setOpenPopup: any;
   values: any;
   setValues: any;
-  initialFieldValues:any;
-  confirmDialog:any;
-  setConfirmDialog:any;
-  setTitle:any
+  initialFieldValues: any;
+  confirmDialog: any;
+  setConfirmDialog: any;
+  setTitle: any
 };
 
 
 
 
-export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
-
+export const SchemePopup: React.FunctionComponent<SchemeProps> = ({ setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
+  const { enqueueSnackbar } = useSnackbar();
   // close popup
   const closePopup = () => {
     setOpenPopup(false);
@@ -65,38 +65,39 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
     temp.payAmount = values.payAmount ? '' : 'Installment amount is required';
     temp.schemeDuration = values.schemeDuration ? '' : 'Scheme duration is required';
     temp.startDate = values.startDate ? '' : 'Start date is required';
-    
-   
+
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === '');
   };
 
 
   // handle Input change
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
     setValues({ ...values, [name]: value });
   }
 
   // create scheme api
-  const saveScheme = (e:any) => {
-    console.log(values,"scheme save method1")
+  const saveScheme = (e: any) => {
+    console.log(values, "scheme save method1")
     if (!validateScheme()) {
       return;
     }
-    console.log(values,"scheme save method2")
+    console.log(values, "scheme save method2")
 
-   axios
-      .post('http://localhost:8081/addSchemeDetails/save',values)
+    axios
+      .post('http://localhost:8081/addSchemeDetails/save', values)
       .then((result) => {
-        console.log(result);
         if ((result.data === "Scheme inserted successfully")) {
-          swal({
-            title: "Scheme Created Successfully!!!",
-          }).then(function () {
+          enqueueSnackbar('scheme created successfully.', { variant: "success",autoHideDuration:4000 });
+          setOpenPopup(false);
+          setTitle('');
+          setTimeout(function () {
             window.location.href = "http://localhost:3000/adminhomepage";
-          });
+          }, 1000);
+
 
         }
       })
@@ -106,17 +107,17 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
   };
 
   // handle scheme duration
-  const handleSchemeDuration=(e:any)=>{
+  const handleSchemeDuration = (e: any) => {
     const value = e.target.value;
-    setValues({ ...values,schemeDuration:value,startDate:null});
+    setValues({ ...values, schemeDuration: value, startDate: null });
 
   }
- 
+
   // start date handler
-  const startDateHandler=(e:any)=>{
-    let date:any = new Date(e);
+  const startDateHandler = (e: any) => {
+    let date: any = new Date(e);
     console.log(date);
-   
+
 
     let duration = values.schemeDuration;
     let monthValue = 12;
@@ -133,7 +134,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
       date.setMonth(newMonth);
     }
     date = new Date(date).toISOString().slice(0, 10);
-    setValues({ ...values, startDate:e,endDate: date});
+    setValues({ ...values, startDate: e, endDate: date });
 
   }
 
@@ -142,7 +143,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
   return (
     <>
 
-      <FormProvider methods={methods} onSubmit={(e)=>e.preventDefault()}>
+      <FormProvider methods={methods} onSubmit={(e) => e.preventDefault()}>
         <Grid container spacing={2} sx={{ mt: -1, mb: 1 }}>
           <Grid item xs={4}>
             <TextFieldMUi
@@ -157,7 +158,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
           </Grid>
 
           <Grid item xs={4}>
-          <TextFieldMUi
+            <TextFieldMUi
               variant="outlined"
               label="Scheme amount"
               name="schemeAmount"
@@ -166,11 +167,11 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
               onChange={handleInputChange}
               {...(errors.schemeAmount !== '' && { error: true, helperText: errors.schemeAmount })}
               required
-              />
-              </Grid>
+            />
+          </Grid>
 
-              <Grid item xs={4}>
-              <TextFieldMUi
+          <Grid item xs={4}>
+            <TextFieldMUi
               variant="outlined"
               label="Number Of User"
               name="numberOfUser"
@@ -179,11 +180,11 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
               onChange={handleInputChange}
               {...(errors.numberOfUser !== '' && { error: true, helperText: errors.numberOfUser })}
               required
-              />
-                </Grid>
+            />
+          </Grid>
 
-                <Grid item xs={4}>
-                <TextFieldMUi
+          <Grid item xs={4}>
+            <TextFieldMUi
               variant="outlined"
               label="Installment Amount"
               name="payAmount"
@@ -192,11 +193,11 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
               onChange={handleInputChange}
               {...(errors.payAmount !== '' && { error: true, helperText: errors.payAmount })}
               required
-              />
-               </Grid>
+            />
+          </Grid>
 
-               <Grid item xs={4}>
-               <TextFieldMUi
+          <Grid item xs={4}>
+            <TextFieldMUi
               variant="outlined"
               label=" Scheme Duration (in months)"
               name="schemeDuration"
@@ -204,29 +205,29 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
               value={values.schemeDuration}
               onChange={handleSchemeDuration}
               {...(errors.schemeDuration !== '' && { error: true, helperText: errors.schemeDuration })}
-              />
-              </Grid>
-
-              <Grid item xs={4}>
-             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker                
-              label="Start Date"
-              value={values.startDate}
-              onChange={startDateHandler}
-              renderInput={(params) => (
-                <TextField
-                  sx={{width:"225px"}}
-                  {...params}
-                  {...(errors.startDate !== '' && { error: true, helperText: errors.startDate })}
-                />
-              )}
             />
-          </LocalizationProvider>
           </Grid>
 
           <Grid item xs={4}>
-             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker                
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Start Date"
+                value={values.startDate}
+                onChange={startDateHandler}
+                renderInput={(params) => (
+                  <TextField
+                    sx={{ width: "225px" }}
+                    {...params}
+                    {...(errors.startDate !== '' && { error: true, helperText: errors.startDate })}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+          </Grid>
+
+          <Grid item xs={4}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
                 label="End Date"
                 value={values.endDate}
                 disabled={true}
@@ -236,8 +237,8 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({setOpenPopup,
                     {...params} />
                 )} onChange={function (value: any, keyboardInputValue?: string | undefined): void {
                   throw new Error('Function not implemented.');
-                } }            />
-          </LocalizationProvider>
+                }} />
+            </LocalizationProvider>
           </Grid>
 
         </Grid>

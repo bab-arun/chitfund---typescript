@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormProvider from '../../components/FormProvider';
 import { TextFieldMUi } from '../../components/TextFieldMui';
+import { useSnackbar } from 'notistack';
 import { AutoCompleteDropdown } from '../../components/AutoCompleteDropdown';
 
 const NewUserSchema = Yup.object().shape({
@@ -32,16 +33,16 @@ type UserProps = {
   setOpenPopup: any;
   values: any;
   setValues: any;
-  initialFieldValues:any;
-  confirmDialog:any;
-  setConfirmDialog:any;
-  setTitle:any
+  initialFieldValues: any;
+  confirmDialog: any;
+  setConfirmDialog: any;
+  setTitle: any
 };
 
 
-export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
+export const UserPopup: React.FunctionComponent<UserProps> = ({ setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
 
-
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
     values,
@@ -81,21 +82,21 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
 
   /////////////////create user api call
   const saveUser = () => {
-  if(!validateUser()){
-    return
-  }
-  console.log(values,"user save method")
+    if (!validateUser()) {
+      return
+    }
+    console.log(values, "user save method")
     axios
       .post("http://localhost:8081/user-details/save", values)
       .then((result) => {
         console.log(result);
         if (result.data === "User Record Saved Successfully") {
-          swal({
-            text: values.userCode,
-            title: " Saved Successfully!!!",
-          }).then(function () {
+          setOpenPopup(false);
+          setTitle('');
+          enqueueSnackbar(`User ${values.userCode} saved successfully.`, { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
             window.location.href = "http://localhost:3000/createuser";
-          });
+          }, 1000);
         }
       })
       .catch((error) => {
@@ -104,7 +105,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
   };
 
   // handle Input change
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
     if (name === "mobile") {
@@ -125,7 +126,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
 
     if (validUserName.test(values.userName)) {
       setErrors({ ...errors, userName: "" })
-    } else if(values.userName !== '' && values.userName !== null) {
+    } else if (values.userName !== '' && values.userName !== null) {
       setErrors({ ...errors, userName: "Only aphabets" })
     }
   };
@@ -159,9 +160,9 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
 
     const validUserCode = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  if (validUserCode.test(values.userCode)) {
+    if (validUserCode.test(values.userCode)) {
       setErrors({ ...errors, userCode: "" })
-    } else if(values.userCode !== '' && values.userCode !== null){
+    } else if (values.userCode !== '' && values.userCode !== null) {
       setErrors({ ...errors, userCode: "Only Email format" })
     }
   };
@@ -171,14 +172,14 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
   }
 
   // password validation
-  const passwordHandler = (e:any) => {
+  const passwordHandler = (e: any) => {
 
     const validPassword =
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
-   if (validPassword.test(values.password)) {
+    if (validPassword.test(values.password)) {
       setErrors({ ...errors, password: "" })
-    } else if(values.password !== '' && values.password !== null) {
+    } else if (values.password !== '' && values.password !== null) {
       setErrors({ ...errors, password: "Use upper,lower,special and numeric characters" })
     }
   };
@@ -188,12 +189,12 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
   }
 
   // Email validation
-  const emailHandler = (e:any) => {
+  const emailHandler = (e: any) => {
 
     const validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-   if (validEmail.test(values.email)) {
+    if (validEmail.test(values.email)) {
       setErrors({ ...errors, email: "" })
-    } else if(values.email !== '' && values.email !== null) {
+    } else if (values.email !== '' && values.email !== null) {
       setErrors({ ...errors, email: "Only Email format" })
     }
   };
@@ -218,7 +219,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
     else if (values.mobile !== '') {
       setErrors({ ...errors, mobile: "Telephone no should be 10 numbers" })
     }
-  
+
   }
 
   const mobileHider = () => {
@@ -226,7 +227,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
   }
 
   // Role validation
-  const handleRole = (event:any, value:any) => {
+  const handleRole = (event: any, value: any) => {
     setValues({ ...values, role: value.name });
   }
 
@@ -246,7 +247,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
               onFocus={userNameHider}
               onChange={handleInputChange}
               {...(errors.userName !== '' && { error: true, helperText: errors.userName })}
-              
+
             />
           </Grid>
           <Grid item xs={4}>
@@ -259,7 +260,7 @@ export const UserPopup: React.FunctionComponent<UserProps>  = ({ setOpenPopup, v
               onFocus={userCodeHider}
               onChange={handleInputChange}
               {...(errors.userCode !== '' && { error: true, helperText: errors.userCode })}
-              
+
             />
           </Grid>
           <Grid item xs={4}>

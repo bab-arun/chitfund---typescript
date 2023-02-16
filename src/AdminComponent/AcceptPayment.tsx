@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { AdminNavbar } from "./AdminNavbar";
 import axios from "axios";
-import swal from "sweetalert";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Typography } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 export const AcceptPayment = () => {
+  const { enqueueSnackbar } = useSnackbar();
 
   /////////////////accept payment list////////
 
@@ -37,11 +38,11 @@ export const AcceptPayment = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data === "Payment is Accepted") {
-          swal({
-            title: "Payment Accepted Successfully!!!",
-          }).then(function () {
+          
+          enqueueSnackbar(`Payment Accepted Successfully`, { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
             window.location.href = "http://localhost:3000/acceptpayment";
-          });
+          }, 1000);
         }
       })
       .catch((err) => console.log(err));

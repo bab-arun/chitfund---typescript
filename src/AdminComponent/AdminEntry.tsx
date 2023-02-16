@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { AdminNavbar } from "./AdminNavbar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import swal from "sweetalert";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import FormProvider from "../components/FormProvider";
 import { useForm } from "react-hook-form";
@@ -13,6 +12,7 @@ import { AutoCompleteDropdown } from "../components/AutoCompleteDropdown";
 import { TextFieldMUi } from "../components/TextFieldMui";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useSnackbar } from 'notistack';
 
 const AdminEntrySchema = Yup.object().shape({
   // name: Yup.string().required("Name is required"),
@@ -33,6 +33,7 @@ const initialFieldValues: InitialFieldValues = {
 
 export const AdminEntry = () => {
   const { scheme, amount } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
   const [values, setValues] = useState(initialFieldValues);
   const methods = useForm({
     resolver: yupResolver(AdminEntrySchema),
@@ -71,19 +72,15 @@ export const AdminEntry = () => {
       .then((result) => {
         console.log(result);
         if (result.data === "Admin Payment Done") {
-          swal({
-            text: values.userId,
-            title: " Payment Successfully by Admin...!",
-          }).then(function () {
+          enqueueSnackbar(`${ values.userId} Payment Successfully by Admin`, { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
             window.location.href = "http://localhost:3000/adminentry";
-          });
+          }, 1000);
+
         } else {
-          swal({
-            title:
-              " user " + values.userId + " Payment for this Date is already Done...!",
-            icon: "warning",
-            dangerMode: true,
-          });
+         
+          enqueueSnackbar(`${ values.userId} Payment for this Date is already Done`, { variant: "error", autoHideDuration: 4000 });
+          
         }
       })
       .catch((error) => {

@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DynamicPopup from "../../components/DynamicPopup";
 import { UserPopup } from "./UserPopup";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { useSnackbar } from 'notistack';
 
 interface InitialFieldValues {
   id: number,
@@ -40,6 +41,7 @@ export const CreateUser = () => {
   const [values, setValues] = useState(initialFieldValues);
   const [openPopup, setOpenPopup] = useState(false);
   const [title, setTitle] = useState('Add User');
+  const { enqueueSnackbar } = useSnackbar();
 
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
@@ -56,7 +58,11 @@ export const CreateUser = () => {
       .then((res) => {
         console.log(res);
         if (res.data === "User record deleted") {
-         window.location.href = "http://localhost:3000/createuser";
+          enqueueSnackbar('User deleted successfully.', { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
+            window.location.href = "http://localhost:3000/createuser";
+          }, 1000);
+       
         }
       })
       .catch((err) => console.log(err));
