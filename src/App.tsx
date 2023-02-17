@@ -16,39 +16,14 @@ import { LoginPage } from "./LoginComponent/LoginPage";
 import { UsersPendingPayment } from "./AdminComponent/UsersPendingPayment";
 import { PendingPayUser } from "./AdminComponent/PendingPayUser";
 import { AvailableChit } from "./UserComponent/AvailableChit";
-// import { UserSchemes } from "./UserComponent/UserSchemes";
-// import {createContext,useReducer } from "react";
 import { CreateUser } from "./AdminComponent/user/CreateUser";
 
 
-
-// type declaration for userContext
-// export type userContext = {
-//   userCode: string
-//   dispatch: (c: string) => void
-// }
-
-
-// export const UserContext = createContext<userContext>({
-//   userCode:'',
-//   dispatch:() => { },
-// }); //userCode
-
-// const initialState = "";
-// const reducer = (state :any, action:any) => {
-//   state = action;
-//   return state;
-// };
-
 function App() {
-  // const [userCode, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div>
    
-        {/* <UserContext.Provider 
-         value={{ userCode: userCode, dispatch: dispatch }}
-        > */}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/usernavbar" element={<UserNavbar />} />
@@ -86,7 +61,6 @@ function App() {
           <Route path="/availablechitschemes" element={<AvailableChit />} />
 
         </Routes>
-        {/* </UserContext.Provider> */}
      
     </div>
   );
