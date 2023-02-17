@@ -1,12 +1,13 @@
 import React from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate,Link, } from "react-router-dom";
 import {AppBar,Toolbar,Button, Typography, Box,Stack } from '@mui/material';
+
 
 export const AdminNavbar = () => {
   const logout = useNavigate();
-
+ 
   let userCode = sessionStorage.getItem("userCode");
-  console.log(userCode);
+ 
 
   return (
     <>

@@ -1,13 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
-
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Box, Button, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router";
-import { ChitSchemeContext } from "../../App";
+// import { ChitSchemeContext } from "../../App";
 import { AdminNavbar } from "../AdminNavbar";
 import { Link } from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
@@ -15,6 +13,10 @@ import DynamicPopup from "../../components/DynamicPopup";
 import { SchemePopup } from "./SchemePopup";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { useSnackbar } from 'notistack';
+// redux
+import { useAppDispatch } from "../../redux/store/store";
+import { schemeNameChange } from "../../redux/slices/schemeSlice";
+
 
 
 interface InitialFieldValues {
@@ -41,7 +43,9 @@ const initialFieldValues: InitialFieldValues = {
 
 
 export const AdminHomepage = () => {
-  const { setLinkSchemeName } = useContext(ChitSchemeContext);
+  // redux
+  const dispatch = useAppDispatch();
+//  --------------------------------------------------------
   const [values, setValues] = useState(initialFieldValues);
   const [schemeDuration, setSchemeDuration] = useState();
   const [startDate, setStartDate] = useState("");
@@ -67,7 +71,8 @@ export const AdminHomepage = () => {
 
   const assignLinkPopulate = (x: any) => {
     console.log(x.row.schemeName);
-    setLinkSchemeName(x.row.schemeName);
+    // setLinkSchemeName(x.row.schemeName);
+    dispatch(schemeNameChange({schemeName:x.row.schemeName}))
 
     if (x.row.numberOfUser === x.row.schemeUserCount) {
       enqueueSnackbar(`User Count is Full, You are unable to add user`, { variant: "info", autoHideDuration: 4000 });

@@ -2,9 +2,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { AdminNavbar } from "./AdminNavbar";
-import { useContext } from "react";
-import { ChitSchemeContext } from "../App";
-import swal from "sweetalert";
 import FormProvider from "../components/FormProvider";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +9,9 @@ import * as Yup from 'yup';
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { AutoCompleteDropdown } from "../components/AutoCompleteDropdown";
 import { TextFieldMUi } from "../components/TextFieldMui";
+import { useSnackbar } from 'notistack';
+// redux
+import { useAppSelector } from "../redux/store/store";
 
 
 const NewAssignSchemeSchema = Yup.object().shape({
@@ -29,11 +29,10 @@ const initialFieldValues : InitialFieldValues={
 }
 
 export const AssignScheme = () => {
-
- 
-
-  const { linkSchemeName } = useContext(ChitSchemeContext);
-
+  const { enqueueSnackbar } = useSnackbar();
+//  redux
+const {schemeName:linkSchemeName}=useAppSelector((state)=> state.scheme)
+// ----------------------------------------------------------------------
   const[values,setValues]= useState(initialFieldValues);
 
 
@@ -73,11 +72,11 @@ export const AssignScheme = () => {
       .then((response) => {
         console.log(response);
         if (response.data === "User is Assigned for scheme") {
-          swal({
-            title: "New Users assigned to " + values.schemeName + " Successfully!!!",
-          }).then(function () {
+          enqueueSnackbar(`New Users assigned to ${ values.schemeName} Successfully.`, { variant: "success", autoHideDuration: 4000 });
+          setTimeout(function () {
             window.location.href = "http://localhost:3000/adminhomepage";
-          });
+          }, 1000);
+
         }
       })
       .catch((error) => {

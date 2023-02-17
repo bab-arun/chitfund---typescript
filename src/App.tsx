@@ -17,48 +17,38 @@ import { UsersPendingPayment } from "./AdminComponent/UsersPendingPayment";
 import { PendingPayUser } from "./AdminComponent/PendingPayUser";
 import { AvailableChit } from "./UserComponent/AvailableChit";
 // import { UserSchemes } from "./UserComponent/UserSchemes";
-import { useState, createContext,useReducer } from "react";
+// import {createContext,useReducer } from "react";
 import { CreateUser } from "./AdminComponent/user/CreateUser";
 
-// type declaration for chitschemecontext
-export type schemeName = {
-  linkSchemeName: string
-  setLinkSchemeName: (c: string) => void
-}
+
 
 // type declaration for userContext
-export type userContext = {
-  userCode: string
-  dispatch: (c: string) => void
-}
+// export type userContext = {
+//   userCode: string
+//   dispatch: (c: string) => void
+// }
 
-export const ChitSchemeContext = createContext<schemeName>({
-  linkSchemeName: '', // set a default value
-  setLinkSchemeName: () => { },
-}); //assign scheme
 
-export const UserContext = createContext<userContext>({
-  userCode:'',
-  dispatch:() => { },
-}); //userCode
+// export const UserContext = createContext<userContext>({
+//   userCode:'',
+//   dispatch:() => { },
+// }); //userCode
 
-const initialState = "";
-const reducer = (state :any, action:any) => {
-  state = action;
-  return state;
-};
+// const initialState = "";
+// const reducer = (state :any, action:any) => {
+//   state = action;
+//   return state;
+// };
 
 function App() {
-  const [userCode, dispatch] = useReducer(reducer, initialState);
-
-  const [linkSchemeName, setLinkSchemeName] = useState("");
+  // const [userCode, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div>
-      <ChitSchemeContext.Provider value={{ linkSchemeName, setLinkSchemeName }}>
-        <UserContext.Provider 
+   
+        {/* <UserContext.Provider 
          value={{ userCode: userCode, dispatch: dispatch }}
-        >
+        > */}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/usernavbar" element={<UserNavbar />} />
@@ -95,14 +85,9 @@ function App() {
           />
           <Route path="/availablechitschemes" element={<AvailableChit />} />
 
-          {/* <Route path="userschemes" element={<UserSchemes />} /> */}
-
-
-
-
         </Routes>
-        </UserContext.Provider>
-      </ChitSchemeContext.Provider>
+        {/* </UserContext.Provider> */}
+     
     </div>
   );
 }
