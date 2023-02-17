@@ -71,7 +71,6 @@ export const AdminHomepage = () => {
 
   const assignLinkPopulate = (x: any) => {
     console.log(x.row.schemeName);
-    // setLinkSchemeName(x.row.schemeName);
     dispatch(schemeNameChange({schemeName:x.row.schemeName}))
 
     if (x.row.numberOfUser === x.row.schemeUserCount) {
