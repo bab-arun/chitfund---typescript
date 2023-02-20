@@ -96,7 +96,9 @@ export const AdminEntry = () => {
   useEffect(() => {
     setValues({ ...values, schemeId: scheme, installmentAmount: amount });
     ////////////////////////////////////////get user code list by scheme name
-    axios
+
+    if(scheme !== '' && scheme !== null && scheme !== undefined){
+      axios
       .get("http://localhost:8081/getAssignedSchemeUser/userCodeList", {
         params: {
           schemeName: scheme,
@@ -108,15 +110,17 @@ export const AdminEntry = () => {
         setUserCodeList(res.data);
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar(`Oops Unable to get usercode list`, { variant: "error", autoHideDuration: 4000 });
       });
+    }
+   
     axios
       .get("http://localhost:8081/getSchemeName/schemeNameList")
       .then((res) => {
         setSchemeNameList(res.data);
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar(`Oops Unable to get scheme list`, { variant: "error", autoHideDuration: 4000 });
       });
   }, [amount, scheme]);
 
@@ -163,7 +167,9 @@ export const AdminEntry = () => {
         console.log(res.data, "userCodeList");
         setUserCodeList(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get usercode list`, { variant: "error", autoHideDuration: 4000 });
+      });
     axios
       .get("http://localhost:8081/getInstallmentAmount/bySchemeName", {
         params: {
@@ -173,7 +179,9 @@ export const AdminEntry = () => {
       .then((res) => {
         setValues({ ...values, installmentAmount: res.data, schemeId: value })
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get installment amount`, { variant: "error", autoHideDuration: 4000 });
+      });
 
 
   }
