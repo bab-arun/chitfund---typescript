@@ -29,11 +29,13 @@ export const UpdatePayment = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+       
         setInstallmentList(res.data);
         setVal(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get installment payment list`, { variant: "error", autoHideDuration: 4000 });
+      });
   }, [usercode, schemeName]);
 
   //////////////////////////////iterate table////////
@@ -43,7 +45,7 @@ export const UpdatePayment = () => {
 
   const userPayment = (id:number) => {
     let paymentId = id;
-    console.log(paymentId);
+   
     axios
       .get("http://localhost:8081/userPayment/payment", {
         params: {
@@ -51,7 +53,7 @@ export const UpdatePayment = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+     
         if (res.data === "User Payment is Done") {
           enqueueSnackbar(`Payment Done Successfully`, { variant: "success", autoHideDuration: 4000 });
           setTimeout(function () {
@@ -59,7 +61,9 @@ export const UpdatePayment = () => {
           }, 1000);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to proceed payment`, { variant: "error", autoHideDuration: 4000 });
+      });
   };
 
   ///////////////////////////////////////////////////
