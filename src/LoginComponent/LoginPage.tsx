@@ -12,16 +12,10 @@ interface Login {
 
 export const LoginPage = () => {
 
-
-
   const [userCode, setUserCode] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [mismatch, setMismatch] = useState<string>('');
+  const [mismatch, setMismatch] = useState<boolean>(false);
 
-
-
-
-  const [validData, setValidData] = useState();
   const navigate = useNavigate();
 
   const errorMsg: Login = {
@@ -51,19 +45,13 @@ export const LoginPage = () => {
         password: password,
       })
       .then((response) => {
-        console.log(response.data);
-        setValidData(response.data);
 
-        const admin = "admin";
-        const user = "user";
-        const invalidUser = "Invalid Password";
-
-        if (validData === admin) {
+        if (response.data === "admin") {
           return navigate("/adminhomepage");
-        } else if (validData === user) {
+        } else if (response.data === "user") {
           return navigate("/userhomepage");
-        } else if (validData === invalidUser) {
-          setMismatch("* Enter Valid Credentials")
+        } else if (response.data === "Invalid Password") {
+          setMismatch(true)
 
         }
       })
@@ -74,14 +62,14 @@ export const LoginPage = () => {
 
   const handleUserCode = (e: any) => {
 
-    setMismatch('');
+    setMismatch(false);
     setErrors({ ...errors, userCode: '' });
     setUserCode(e.target.value);
     sessionStorage.setItem("userCode", e.target.value);
   }
 
   const handlePassword = (e: any) => {
-    setMismatch('');
+    setMismatch(false);
     setErrors({ ...errors, password: '' });
     setPassword(e.target.value);
   }
@@ -96,7 +84,7 @@ export const LoginPage = () => {
         }}
       >
         <Typography style={{ marginRight: "900px", fontSize: "40px", fontWeight: "20px", marginBottom: "20px" }}>Chitfund</Typography>
-        {mismatch !== '' && (<Typography sx={{ color: "red", marginBottom: "5px" }}>{mismatch}</Typography>)}
+        {mismatch === true &&(<Typography sx={{ color: "red", marginBottom: "5px" }}>*Credentials are mismatched</Typography>)}
         <form onSubmit={(e) => e.preventDefault()}>
           <Stack direction="column" spacing={3}>
             <TextFieldMUi
