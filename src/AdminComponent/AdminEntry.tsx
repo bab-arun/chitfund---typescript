@@ -84,7 +84,7 @@ export const AdminEntry = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar(`Oops Unable to proceed admin entry`, { variant: "error", autoHideDuration: 4000 });
       });
 
   };

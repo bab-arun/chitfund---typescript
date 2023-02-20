@@ -6,10 +6,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 export const UsersPendingPayment = () => {
   const { schemeId, schemeName } = useParams();
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const [schemeUserPendingPaymentList, setSchemeUserPendingPaymentList] =
     useState([]);
@@ -26,7 +27,9 @@ export const UsersPendingPayment = () => {
         setSchemeUserPendingPaymentList(res.data);
         setLoadData(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get user pending payment list`, { variant: "error", autoHideDuration: 4000 });
+      });
   }, []);
 
   /////////////////////////////////////////

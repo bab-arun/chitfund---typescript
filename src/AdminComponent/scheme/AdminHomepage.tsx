@@ -117,7 +117,9 @@ export const AdminHomepage = () => {
         setScheme(res.data);
         setVal(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get all schemes`, { variant: "error", autoHideDuration: 4000 });
+      });
   }, []);
 
 

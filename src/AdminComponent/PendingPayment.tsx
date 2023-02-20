@@ -4,10 +4,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 export const PendingPayment = () => {
 
-
+  const { enqueueSnackbar } = useSnackbar();
   const [schemePendingPaymentList, setSchemePendingPaymentList] = useState([]);
   const [loadData, setLoadData] = useState(false);
 
@@ -19,7 +20,9 @@ export const PendingPayment = () => {
         setSchemePendingPaymentList(res.data);
         setLoadData(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get scheme pending payment list`, { variant: "error", autoHideDuration: 4000 });
+      });
   }, []);
 
   

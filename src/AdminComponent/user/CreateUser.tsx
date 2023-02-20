@@ -65,7 +65,9 @@ export const CreateUser = () => {
        
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to delete user`, { variant: "error", autoHideDuration: 4000 });
+      });
   }
 
   ///////////////////////////////////////////////
@@ -94,7 +96,9 @@ export const CreateUser = () => {
         setUser(res.data);
         setLoadData(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>{
+        enqueueSnackbar(`Oops Unable to get user list`, { variant: "error", autoHideDuration: 4000 });
+      });
   }, []);
 
 

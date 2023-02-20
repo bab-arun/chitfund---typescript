@@ -100,7 +100,7 @@ export const UserPopup: React.FunctionComponent<UserProps> = ({ setOpenPopup, va
         }
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar(`Oops Unable to add user`, { variant: "error", autoHideDuration: 4000 });
       });
   };
 

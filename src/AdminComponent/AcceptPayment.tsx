@@ -20,7 +20,9 @@ export const AcceptPayment = () => {
         setAcceptPaymentList(res.data);
         setVal(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to get payment list`, { variant: "error", autoHideDuration: 4000 });
+      });
   }, []);
 
   
@@ -45,7 +47,9 @@ export const AcceptPayment = () => {
           }, 1000);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        enqueueSnackbar(`Oops Unable to proceed payment accept`, { variant: "error", autoHideDuration: 4000 });
+      });
   };
 
   ///////////////////////////////////////////////////////////////

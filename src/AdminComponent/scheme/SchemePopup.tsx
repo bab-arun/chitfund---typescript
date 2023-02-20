@@ -81,12 +81,11 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({ setOpenPopup
 
   // create scheme api
   const saveScheme = (e: any) => {
-    console.log(values, "scheme save method1")
+    
     if (!validateScheme()) {
       return;
     }
-    console.log(values, "scheme save method2")
-
+   
     axios
       .post('http://localhost:8081/addSchemeDetails/save', values)
       .then((result) => {
@@ -102,7 +101,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({ setOpenPopup
         }
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar(`Oops Unable to add scheme`, { variant: "error", autoHideDuration: 4000 });
       });
   };
 
