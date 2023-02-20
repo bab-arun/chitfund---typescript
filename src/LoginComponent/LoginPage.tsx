@@ -1,9 +1,9 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TextFieldMUi } from "../components/TextFieldMui";
 import { Box, Button, Stack, Typography } from "@mui/material";
+import { useSnackbar } from 'notistack';
 
 interface Login {
   userCode: string,
@@ -11,7 +11,7 @@ interface Login {
 }
 
 export const LoginPage = () => {
-
+  const { enqueueSnackbar } = useSnackbar();
   const [userCode, setUserCode] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [mismatch, setMismatch] = useState<boolean>(false);
@@ -26,7 +26,6 @@ export const LoginPage = () => {
 
   const loginValidate = () => {
     const temp: Login = errorMsg;
-    console.log(userCode, password, "userId Password");
     temp.userCode = userCode ? '' : 'email is required';
     temp.password = password ? '' : 'password is required';
     setErrors({ ...temp });
@@ -34,7 +33,7 @@ export const LoginPage = () => {
   }
 
   const passwordValidation = (e: any) => {
-    console.log(userCode, password, "userId Password submit method");
+ 
     if (!loginValidate()) {
       return
     }
@@ -56,7 +55,7 @@ export const LoginPage = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        enqueueSnackbar(`Oops Unable to login`, { variant: "error", autoHideDuration: 4000 });
       });
   };
 
