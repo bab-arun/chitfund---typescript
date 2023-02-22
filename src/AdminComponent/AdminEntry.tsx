@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 
 import React, { useState, useEffect } from "react";
 import { AdminNavbar } from "./AdminNavbar";
@@ -13,10 +14,12 @@ import { TextFieldMUi } from "../components/TextFieldMui";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
 
 const AdminEntrySchema = Yup.object().shape({
   // name: Yup.string().required("Name is required"),
 });
+
 
 interface InitialFieldValues {
   schemeId: string | undefined,
@@ -32,6 +35,9 @@ const initialFieldValues: InitialFieldValues = {
 }
 
 export const AdminEntry = () => {
+  // snackbar custom hook
+  const{setMysnackbar}=useSnackbarHook();
+  // --------------------------------------
   const { scheme, amount } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const [values, setValues] = useState(initialFieldValues);
@@ -48,6 +54,8 @@ export const AdminEntry = () => {
     installmentAmount: '',
   };
   const [errors, setErrors] = useState(errorMsg);
+
+ 
 
   const validateAdminEntry = () => {
     const temp = errorMsg;
@@ -72,19 +80,20 @@ export const AdminEntry = () => {
       .then((result) => {
         console.log(result);
         if (result.data === "Admin Payment Done") {
-          enqueueSnackbar(`${ values.userId} Payment Successfully by Admin`, { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar(`${ values.userId} Payment Successfully by Admin`,"success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/adminentry";
-          }, 1000);
+          }, 10000);
 
         } else {
          
-          enqueueSnackbar(`${ values.userId} Payment for this Date is already Done`, { variant: "error", autoHideDuration: 4000 });
-          
+          // enqueueSnackbar(`${ values.userId} Payment for this Date is already Done`, { variant: "error", autoHideDuration: 4000 });
+          setMysnackbar(`${ values.userId} Payment for this Date is already Done`,"error");
         }
       })
       .catch((error) => {
-        enqueueSnackbar(`Oops Unable to proceed admin entry`, { variant: "error", autoHideDuration: 4000 });
+        // enqueueSnackbar(`Oops Unable to proceed admin entry`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar("Oops Unable to proceed admin entry","error");
       });
 
   };
