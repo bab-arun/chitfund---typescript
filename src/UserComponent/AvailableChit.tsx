@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { UserNavbar } from "./UserNavbar";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
 
 export const AvailableChit = () => {
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   const [scheme, setScheme] = useState([]);
   const [val, setVal] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     axios
@@ -19,7 +21,7 @@ export const AvailableChit = () => {
         setVal(true);
       })
       .catch((err) => {
-        enqueueSnackbar('Oops unable to get available chit', { variant: "success", autoHideDuration: 4000 });
+        setMysnackbar('Oops unable to get available chit',"success");
       });
   }, []);
 

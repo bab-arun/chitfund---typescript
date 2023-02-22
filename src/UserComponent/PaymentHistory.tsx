@@ -4,13 +4,16 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
+
 
 export const PaymentHistory = () => {
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   let usercode = sessionStorage.getItem("userCode");
   const { schemeName } = useParams();
   const [paymentHistoryList, setPaymentHistoryList] = useState([]);
-  const { enqueueSnackbar } = useSnackbar();
   const [val, setVal] = useState(false);
   useEffect(() => {
     let scheme = schemeName;
@@ -34,7 +37,7 @@ export const PaymentHistory = () => {
         setVal(true);
       })
       .catch((err) =>{
-        enqueueSnackbar(`Oops Unable to get payment history`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to get payment history`,"error");
       });
   }, [schemeName, usercode]);
 

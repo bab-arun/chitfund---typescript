@@ -4,14 +4,15 @@ import { UserNavbar } from "./UserNavbar";
 import { useParams } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
+
 
 export const UpdatePayment = () => {
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   let usercode = sessionStorage.getItem("userCode");
   const { schemeName } = useParams();
-  const { enqueueSnackbar } = useSnackbar();
-
-
   const [installmentList, setInstallmentList] = useState([]);
 
   const [val, setVal] = useState(false);
@@ -34,7 +35,7 @@ export const UpdatePayment = () => {
         setVal(true);
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to get installment payment list`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to get installment payment list`,"error");
       });
   }, [usercode, schemeName]);
 
@@ -55,14 +56,14 @@ export const UpdatePayment = () => {
       .then((res) => {
      
         if (res.data === "User Payment is Done") {
-          enqueueSnackbar(`Payment Done Successfully`, { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar(`Payment Done Successfully`,"success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/updatepayment";
           }, 1000);
         }
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to proceed payment`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to proceed payment`,"error");
       });
   };
 
