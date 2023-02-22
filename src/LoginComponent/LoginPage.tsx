@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TextFieldMUi } from "../components/TextFieldMui";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
+
 
 interface Login {
   userCode: string,
@@ -11,7 +12,9 @@ interface Login {
 }
 
 export const LoginPage = () => {
-  const { enqueueSnackbar } = useSnackbar();
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   const [userCode, setUserCode] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [mismatch, setMismatch] = useState<boolean>(false);
@@ -55,7 +58,7 @@ export const LoginPage = () => {
         }
       })
       .catch((error) => {
-        enqueueSnackbar(`Oops Unable to login`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to login`,"error");
       });
   };
 

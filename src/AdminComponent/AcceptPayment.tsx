@@ -3,11 +3,14 @@ import { AdminNavbar } from "./AdminNavbar";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
+
 
 export const AcceptPayment = () => {
-  const { enqueueSnackbar } = useSnackbar();
-
+  
+ // snackbar custom hook
+ const{setMysnackbar}=useSnackbarHook();
+ // --------------------------------------
   /////////////////accept payment list////////
 
   const [acceptPaymentList, setAcceptPaymentList] = useState([]);
@@ -21,7 +24,7 @@ export const AcceptPayment = () => {
         setVal(true);
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to get payment list`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to get payment list`,"error");
       });
   }, []);
 
@@ -41,14 +44,14 @@ export const AcceptPayment = () => {
         console.log(res.data);
         if (res.data === "Payment is Accepted") {
           
-          enqueueSnackbar(`Payment Accepted Successfully`, { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar(`Payment Accepted Successfully`,"success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/acceptpayment";
           }, 1000);
         }
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to proceed payment accept`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to proceed payment accept`,"error");
       });
   };
 

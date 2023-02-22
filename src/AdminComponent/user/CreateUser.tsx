@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DynamicPopup from "../../components/DynamicPopup";
 import { UserPopup } from "./UserPopup";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../../components/useSnackbarHook";
 
 interface InitialFieldValues {
   id: number,
@@ -36,12 +36,14 @@ const initialFieldValues: InitialFieldValues = {
 
 
 export const CreateUser = () => {
-
+ // snackbar custom hook
+ const{setMysnackbar}=useSnackbarHook();
+ // --------------------------------------
 
   const [values, setValues] = useState(initialFieldValues);
   const [openPopup, setOpenPopup] = useState(false);
   const [title, setTitle] = useState('Add User');
-  const { enqueueSnackbar } = useSnackbar();
+ 
 
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
@@ -58,7 +60,7 @@ export const CreateUser = () => {
       .then((res) => {
         console.log(res);
         if (res.data === "User record deleted") {
-          enqueueSnackbar('User deleted successfully.', { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar("User deleted successfully.","success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/createuser";
           }, 1000);
@@ -66,7 +68,7 @@ export const CreateUser = () => {
         }
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to delete user`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar("Oops Unable to delete user","error");
       });
   }
 
@@ -97,7 +99,7 @@ export const CreateUser = () => {
         setLoadData(true);
       })
       .catch((err) =>{
-        enqueueSnackbar(`Oops Unable to get user list`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar("Oops Unable to get user list","error");
       });
   }, []);
 

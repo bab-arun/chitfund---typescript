@@ -11,7 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from "axios";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from '../../components/useSnackbarHook';
+
 
 
 
@@ -33,7 +34,10 @@ type SchemeProps = {
 
 
 export const SchemePopup: React.FunctionComponent<SchemeProps> = ({ setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
-  const { enqueueSnackbar } = useSnackbar();
+  
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   // close popup
   const closePopup = () => {
     setOpenPopup(false);
@@ -90,7 +94,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({ setOpenPopup
       .post('http://localhost:8081/addSchemeDetails/save', values)
       .then((result) => {
         if ((result.data === "Scheme inserted successfully")) {
-          enqueueSnackbar('scheme created successfully.', { variant: "success",autoHideDuration:4000 });
+          setMysnackbar("scheme created successfully.","success");
           setOpenPopup(false);
           setTitle('');
           setTimeout(function () {
@@ -101,7 +105,7 @@ export const SchemePopup: React.FunctionComponent<SchemeProps> = ({ setOpenPopup
         }
       })
       .catch((error) => {
-        enqueueSnackbar(`Oops Unable to add scheme`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar("Oops Unable to add scheme","error");
       });
   };
 

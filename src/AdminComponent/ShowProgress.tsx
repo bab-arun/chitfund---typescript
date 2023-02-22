@@ -3,10 +3,13 @@ import { AdminNavbar } from "./AdminNavbar";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
+
 
 export const ShowProgress = () => {
-  const { enqueueSnackbar } = useSnackbar();
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   const [schemeTotalProgressList, setSchemeTotalProgressList] = useState([]);
   const [loadData, setLoadData] = useState(false);
   useEffect(() => {
@@ -18,7 +21,7 @@ export const ShowProgress = () => {
         setLoadData(true);
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to get chitschemes total progress`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to get chitschemes total progress`,"error");
       });
   }, []);
 

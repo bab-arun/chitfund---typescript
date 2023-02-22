@@ -9,9 +9,9 @@ import * as Yup from 'yup';
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { AutoCompleteDropdown } from "../components/AutoCompleteDropdown";
 import { TextFieldMUi } from "../components/TextFieldMui";
-import { useSnackbar } from 'notistack';
 // redux
 import { useAppSelector } from "../redux/store/store";
+import useSnackbarHook from "../components/useSnackbarHook";
 
 
 const NewAssignSchemeSchema = Yup.object().shape({
@@ -29,7 +29,9 @@ const initialFieldValues : InitialFieldValues={
 }
 
 export const AssignScheme = () => {
-  const { enqueueSnackbar } = useSnackbar();
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
 //  redux
 const {schemeName:linkSchemeName}=useAppSelector((state)=> state.scheme)
 // ----------------------------------------------------------------------
@@ -72,7 +74,7 @@ const {schemeName:linkSchemeName}=useAppSelector((state)=> state.scheme)
       .then((response) => {
         console.log(response);
         if (response.data === "User is Assigned for scheme") {
-          enqueueSnackbar(`New Users assigned to ${ values.schemeName} Successfully.`, { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar(`New Users assigned to ${ values.schemeName} Successfully.`,"success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/adminhomepage";
           }, 1000);

@@ -12,10 +12,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import DynamicPopup from "../../components/DynamicPopup";
 import { SchemePopup } from "./SchemePopup";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { useSnackbar } from 'notistack';
 // redux
 import { useAppDispatch } from "../../redux/store/store";
 import { schemeNameChange } from "../../redux/slices/schemeSlice";
+import useSnackbarHook from "../../components/useSnackbarHook";
 
 
 
@@ -46,13 +46,16 @@ export const AdminHomepage = () => {
   // redux
   const dispatch = useAppDispatch();
 //  --------------------------------------------------------
+ // snackbar custom hook
+ const{setMysnackbar}=useSnackbarHook();
+ // --------------------------------------
   const [values, setValues] = useState(initialFieldValues);
   const [schemeDuration, setSchemeDuration] = useState();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState();
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [title, setTitle] = useState('Add Scheme');
-  const { enqueueSnackbar } = useSnackbar();
+  
 
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
@@ -74,7 +77,7 @@ export const AdminHomepage = () => {
     dispatch(schemeNameChange({schemeName:x.row.schemeName}))
 
     if (x.row.numberOfUser === x.row.schemeUserCount) {
-      enqueueSnackbar(`User Count is Full, You are unable to add user`, { variant: "info", autoHideDuration: 4000 });
+      setMysnackbar("User Count is Full, You are unable to add user","info");
     } else {
       navigate("/assignscheme");
     }
@@ -89,7 +92,7 @@ export const AdminHomepage = () => {
       .get(`http://localhost:8081/scheme-details/delete/ ${cellValues.row.id}`)
       .then((res) => {
         if (res.data === "Scheme record deleted") {
-          enqueueSnackbar('scheme deleted successfully.', { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar("scheme deleted successfully.","success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/adminhomepage";
           }, 1000);
@@ -97,7 +100,7 @@ export const AdminHomepage = () => {
         }
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to delete scheme`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar("Oops Unable to delete scheme","error");
       });
 
   };
@@ -118,7 +121,7 @@ export const AdminHomepage = () => {
         setVal(true);
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to get all schemes`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar("Oops Unable to get all schemes","error");
       });
   }, []);
 

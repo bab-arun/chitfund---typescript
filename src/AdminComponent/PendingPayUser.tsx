@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography } from "@mui/material";
-import { useSnackbar } from 'notistack';
+import useSnackbarHook from "../components/useSnackbarHook";
 
 export const PendingPayUser = () => {
+   // snackbar custom hook
+   const{setMysnackbar}=useSnackbarHook();
+   // --------------------------------------
   const { schemeName, userCode } = useParams();
-
-  const { enqueueSnackbar } = useSnackbar();
   const [monthlyUserPendingPaymentList, setmonthlyUserPendingPaymentList] =
     useState([]);
   const [loadData, setLoadData] = useState(false);
@@ -27,7 +28,7 @@ export const PendingPayUser = () => {
         setLoadData(true);
       })
       .catch((err) => {
-        enqueueSnackbar(`Oops Unable to get user monthly pending payment list`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to get user monthly pending payment list`,"error");
       });
   }, []);
 

@@ -10,8 +10,8 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormProvider from '../../components/FormProvider';
 import { TextFieldMUi } from '../../components/TextFieldMui';
-import { useSnackbar } from 'notistack';
 import { AutoCompleteDropdown } from '../../components/AutoCompleteDropdown';
+import useSnackbarHook from '../../components/useSnackbarHook';
 
 const NewUserSchema = Yup.object().shape({
   // name: Yup.string().required("Name is required"),
@@ -42,7 +42,9 @@ type UserProps = {
 
 export const UserPopup: React.FunctionComponent<UserProps> = ({ setOpenPopup, values, setValues, initialFieldValues, confirmDialog, setConfirmDialog, setTitle }) => {
 
-  const { enqueueSnackbar } = useSnackbar();
+  // snackbar custom hook
+  const{setMysnackbar}=useSnackbarHook();
+  // --------------------------------------
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
     values,
@@ -93,14 +95,14 @@ export const UserPopup: React.FunctionComponent<UserProps> = ({ setOpenPopup, va
         if (result.data === "User Record Saved Successfully") {
           setOpenPopup(false);
           setTitle('');
-          enqueueSnackbar(`User ${values.userCode} saved successfully.`, { variant: "success", autoHideDuration: 4000 });
+          setMysnackbar(`User ${values.userCode} saved successfully.`,"success");
           setTimeout(function () {
             window.location.href = "http://localhost:3000/createuser";
           }, 1000);
         }
       })
       .catch((error) => {
-        enqueueSnackbar(`Oops Unable to add user`, { variant: "error", autoHideDuration: 4000 });
+        setMysnackbar(`Oops Unable to add user`,"error");
       });
   };
 
